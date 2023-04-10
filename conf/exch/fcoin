@@ -1,0 +1,13 @@
+name = FCOIN
+
+ws_host = api.fcoin.com
+ws_port = 443
+ws_path = /v2/ws
+
+http_host = api.fcoin.com
+http_port = 443
+
+api_key = c3a4e3a4f7f5482c86e518589cfd16a2
+api_secret = a9de7457ffa34e56a29fcb8e8037bc8c
+
+

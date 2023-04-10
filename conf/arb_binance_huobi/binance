@@ -1,0 +1,11 @@
+name = BINANCE
+
+ws_host = stream.binance.com
+ws_port = 9443
+ws_path = /stream?streams={}@aggTrade/{}@depth20
+
+http_host = api.binance.com
+http_port = 443
+
+api_key = VRZ24sdzc2IkAYvD2c9nGkXIvwm0gZVK3rl1Knd9hvYzWx0L3YCxGOl1nBdzDrEp
+api_secret = jxuQSJSLrvYj7tcgqgMwiOtJMLX1evss4bAT2mFl3qiLMd1jj7hxCVvY7YYEBQDx

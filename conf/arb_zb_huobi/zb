@@ -1,0 +1,11 @@
+name = ZB
+
+ws_host = api.zb.cn
+ws_port = 9999
+ws_path = /websocket
+
+http_host = trade.zb.cn
+http_port = 443
+
+api_key = 0da0dd70-0633-4186-8514-762c6b3cae2a
+api_secret = 0ed29913e5efafbb2cfb2cc2265d49ee9bb90f05

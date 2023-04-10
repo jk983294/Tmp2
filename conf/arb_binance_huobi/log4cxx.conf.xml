@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    https://github.com/Qwlouse/pylstm/blob/master/config/logging_default.xml
+-->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"> 
+    <!-- Output the log message to system console.
+    -->
+    <appender name="MyConsoleAppender" class="org.apache.log4j.ConsoleAppender"> 
+        <param name="Target" value="System.out"/> 
+        <layout class="org.apache.log4j.PatternLayout"> 
+            <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [%p] (%F:%L) %m%n"/> 
+        </layout> 
+        <filter class="log4cxx.LevelRangeFilter">
+            <param name="LevelMin" value="INFO"/>
+            <param name="LevelMax" value="FATAL"/>
+        </filter>
+    </appender> 
+    
+  
+    <!-- On application startup, a log file named "SizeBasedLog.log" will be create if not exist.
+         When the log file reach beyond 5KB, it will be renamed "SizeBasedLog.log.1", when the log
+         index reach "SizeBasedLog.log.5", the next rename will be back to "SizeBasedLog.log.1" and
+         overite the old log. 
+    -->
+    <appender name="DefaultLog" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="<LOG_FILE_PATH>"/>
+                <param name="append" value="true"/>
+                <param name="MaxFileSize" value="500MB"/>
+                <param name="MaxBackupIndex" value="10"/>
+                <layout class="org.apache.log4j.PatternLayout">
+                    <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [%p] (%F:%L) %m%n"/>
+                </layout>
+                <filter class="log4cxx.LevelRangeFilter">
+                    <param name="LevelMin" value="DEBUG"/>
+                    <param name="LevelMax" value="FATAL"/>
+                </filter>
+    </appender> 
+
+    <appender name="TraceLog" class="org.apache.log4j.FileAppender">
+        <param name="file" value="<TRACE_FILE_PATH>"/>
+                <layout class="org.apache.log4j.PatternLayout">
+                    <param name="ConversionPattern" value="%m (%F:%L)%n"/>
+                </layout>
+    </appender> 
+    
+    <appender name="MarketLog" class="org.apache.log4j.FileAppender">
+        <param name="file" value="<MARKET_FILE_PATH>"/>
+                <layout class="org.apache.log4j.PatternLayout">
+                    <param name="ConversionPattern" value="%m (%F:%L)%n"/>
+                </layout>
+    </appender>
+        
+    <appender name="async" class="org.apache.log4j.AsyncAppender">
+        <param name="BufferSize" value="1000"/>
+        <appender-ref ref="DefaultLog"/>
+        <appender-ref ref="MyConsoleAppender"/>
+    </appender>
+    
+  
+    <!-- Setup the root category, add the appenders and set the default level 
+         5 level of logging,  ALL < DEBUG < INFO < WARN < ERROR < FATAL 
+         The root level is set with INFO, which mean any message greater or same
+         as INFO will be log down, in this case, DEBUG is not logged. 
+         To log all regardless of logging level, set <priority value="ALL">
+    -->
+    
+    <root>
+        <priority value="all" />
+        <appender-ref ref="async"/>
+    </root> 
+    
+    <category name="TraceLog" >
+        <priority value ="all" />
+        <appender-ref ref="TraceLog" />
+    </category>
+    
+    <category name="MarketLog" >
+        <priority value ="all" />
+        <appender-ref ref="MarketLog" />
+    </category>
+      
+</log4j:configuration>

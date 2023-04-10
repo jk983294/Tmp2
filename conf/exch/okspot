@@ -1,0 +1,12 @@
+name = OKSPOT
+
+ws_host = real.okex.com
+ws_port = 10442
+ws_path = /ws/v3
+
+http_host = www.okex.com
+http_port = 443
+
+api_key = 1d32f6c6-efa8-4c8c-a623-b77f9bad2bce
+api_secret = ED5683914F40DAD33C03179D4D42B1BC
+api_passphrase = TAMC3838

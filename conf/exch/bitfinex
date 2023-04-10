@@ -1,0 +1,12 @@
+name = BITFINEX
+
+ws_host = api.bitfinex.com
+ws_port = 443
+ws_path = /ws/2
+
+http_host = api.bitfinex.com
+http_port = 443
+
+api_key = IhTVtrwrhbtcXVFgQAs1CDsA0sGyJ7eJvRPlydRGCBw
+api_secret = pplAsQUrLNEprtiSkpREHspDFs56w6VvwvpC3zpENLH
+

@@ -1,0 +1,11 @@
+name = DERIBIT
+
+ws_host = www.deribit.com
+ws_port = 443
+ws_path = /ws/api/v1/
+
+http_host = www.deribit.com
+http_port = 443
+
+api_key = 4s5yi3U4VzGkD
+api_secret = NOGTIXC6BJJUF2PERV5JTBSRUT4UFPP5

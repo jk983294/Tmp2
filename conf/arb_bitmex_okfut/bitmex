@@ -1,0 +1,11 @@
+name = BITMEX
+
+ws_host = www.bitmex.com
+ws_port = 443
+ws_path = /realtime
+
+http_host = www.bitmex.com
+http_port = 443
+
+api_key = q2jutVrZrqnjq_6I79q2I53s
+api_secret = BCmYt8t2KIfCOY19oMF26vuBvS1wE66lheqy2PRRD6K9UMw7

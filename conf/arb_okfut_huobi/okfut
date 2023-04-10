@@ -1,0 +1,11 @@
+name = OKFUT
+
+ws_host = real.okex.com
+ws_port = 10440
+ws_path = /websocket
+
+http_host = www.okex.com
+http_port = 443
+
+api_key = 24bc7103-59c5-4d31-a655-6c315fa31c91 
+api_secret = E5843EEAA0E5BF2EA3918EBEE878FC13

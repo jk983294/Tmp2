@@ -1,0 +1,11 @@
+name = HUOBI
+
+ws_host = api.huobi.pro
+ws_port = 443
+ws_path = /ws
+
+http_host = api.huobi.pro
+http_port = 443
+
+api_key = 7165d0c9-40556d5a-e998c638-20140
+api_secret = 6cb6b482-dacdbf09-cca3f9cc-c0991
