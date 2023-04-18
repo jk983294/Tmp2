@@ -135,10 +135,17 @@ public class OrderBookEngine {
                 if (order.isBuy) {
                     var level_ = bidBook.get(order.price);
                     level_.level.cancel(order.remain_qty());
+                    if (!level_.valid()) {
+                        bidBook.remove(order.price);
+                    }
                 } else {
                     var level_ = askBook.get(order.price);
                     level_.level.cancel(order.remain_qty());
+                    if (!level_.valid()) {
+                        askBook.remove(order.price);
+                    }
                 }
+                extraFields.putAll(order.getOrderFields());
                 return msg.GetSuccessMsg(extraFields);
             }
         } else {

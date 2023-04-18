@@ -20,10 +20,6 @@ public class FixCancelMsg implements FixMsg {
     @Override
     public String GetSuccessMsg(Map<Integer, String> extraFields) {
         Map<Integer, String> fields = new TreeMap<>();
-        fields.put(FixConstants.FieldMsgType, FixConstants.FieldMsgType_OrderCancelReject); // TODO
-        if (fail_reason != null && !fail_reason.isEmpty()) {
-            fields.put(FixConstants.FieldReason, fail_reason);
-        }
         if (extraFields != null) {
             fields.putAll(extraFields);
         }
