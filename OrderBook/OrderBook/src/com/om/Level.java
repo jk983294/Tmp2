@@ -16,6 +16,10 @@ public class Level {
         this.count--;
     }
 
+    public boolean valid() {
+        return this.quantity > 0;
+    }
+
     @Override
     public String toString() {
         return "Level{" +

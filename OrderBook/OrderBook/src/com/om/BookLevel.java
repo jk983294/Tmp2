@@ -18,4 +18,15 @@ public class BookLevel {
         }
         orders.addLast(order);
     }
+
+    void reduce(Order order, long qty) {
+        level.quantity -= qty;
+        if (order.remain_qty() <= 0) {
+            --level.count;
+        }
+    }
+
+    public boolean valid() {
+        return this.level.quantity > 0;
+    }
 }
