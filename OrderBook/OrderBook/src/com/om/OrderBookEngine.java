@@ -64,7 +64,6 @@ public class OrderBookEngine {
                     }
                     return_msgs.add(order.createTradeMsg(ask_order.price, fill_count, ask_order.orderId, tradeIdInternal++));
                     // TODO notify counterparty trade happened
-                    if (order.remain_qty() <= 0) break;
                 }
 
                 if (!level_.valid()) {
@@ -101,7 +100,6 @@ public class OrderBookEngine {
                     }
                     return_msgs.add(order.createTradeMsg(bid_order.price, fill_count, bid_order.orderId, tradeIdInternal++));
                     // TODO notify counterparty trade happened
-                    if (order.remain_qty() <= 0) break;
                 }
 
                 if (!level_.valid()) {
@@ -156,6 +154,9 @@ public class OrderBookEngine {
 
     private String UpdateOrder(FixUpdateMsg msg) {
         Map<Integer, String> extraFields = new TreeMap<>(Comparator.reverseOrder());
+        if (msg.fail_reason != null) {
+            return msg.GetFailureMsg(extraFields);
+        }
         if(id2order.containsKey(msg.orderId)) {
             Order order = id2order.get(msg.orderId);
             if (order.isCancelled) {
@@ -164,15 +165,23 @@ public class OrderBookEngine {
             } else if (order.remain_qty() <= 0) {
                 extraFields.put(FixConstants.FieldReason, "order already filled");
                 return msg.GetFailureMsg(extraFields);
+            } else if (order.filled > msg.newQuantity){
+                extraFields.put(FixConstants.FieldReason, "cannot modify order where new quantity is less than filled quantity");
+                return msg.GetFailureMsg(extraFields);
+            } else if (order.quantity == msg.newQuantity){
+                extraFields.put(FixConstants.FieldReason, "new quantity is not changed");
+                return msg.GetFailureMsg(extraFields);
             } else {
+                long delta = msg.newQuantity - order.quantity;
+                order.quantity = msg.newQuantity;
                 if (order.isBuy) {
                     var level_ = bidBook.get(order.price);
-                    level_.level.cancel(order.remain_qty()); // TODO
+                    level_.level.update(delta);
                 } else {
                     var level_ = askBook.get(order.price);
-                    level_.level.cancel(order.remain_qty());  // TODO
+                    level_.level.update(delta);
                 }
-                return msg.GetSuccessMsg(extraFields);
+                return order.createOrderMsg();
             }
         } else {
             extraFields.put(FixConstants.FieldReason, "no such order");

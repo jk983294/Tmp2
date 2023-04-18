@@ -21,6 +21,7 @@ public class FixConstants {
     static public String FieldMsgType_NewOrderSingle = "D";
     static public String FieldMsgType_OrderCancelRequest = "F";
     static public String FieldMsgType_OrderCancelReject = "9";
+    static public String FieldMsgType_OrderCancelReplaceRequest = "G";
 
     static public String FieldOrdType_Market = "1";
     static public String FieldOrdType_Limit = "2";
