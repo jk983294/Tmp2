@@ -27,6 +27,7 @@ public class FixErrorMsg implements FixMsg {
     public String GetFailureMsg(Map<Integer, String> extraFields) {
         Map<Integer, String> fields = new TreeMap<>();
         fields.put(FixConstants.FieldMsgType, FixConstants.FieldMsgType_Reject); // Reject
+        fields.put(FixConstants.FieldOrdStatus, FixConstants.FieldOrdStatus_Rejected);
         if (reason != null && !reason.isEmpty()) {
             fields.put(FixConstants.FieldReason, reason);
         }

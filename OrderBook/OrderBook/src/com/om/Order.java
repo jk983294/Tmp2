@@ -33,7 +33,7 @@ public class Order {
         this.filled += qty;
     }
 
-    String createOrderMsg() {
+    Map<Integer, String> getOrderFields() {
         Map<Integer, String> fields = new TreeMap<>();
         fields.put(FixConstants.FieldMsgType, FixConstants.FieldMsgType_ExecutionReport);
         if (!this.isMarket) {
@@ -44,7 +44,12 @@ public class Order {
         fields.put(FixConstants.FieldOrdType, this.isMarket ? FixConstants.FieldOrdType_Market : FixConstants.FieldOrdType_Limit);
         fields.put(FixConstants.FieldOrderID, String.valueOf(this.orderId));
         fields.put(FixConstants.FieldCumQty, String.valueOf(this.filled));
-        return FixMsg.CompileMsg(fields);
+        SetOrderStatus(fields);
+        return fields;
+    }
+
+    String createOrderMsg() {
+        return FixMsg.CompileMsg(getOrderFields());
     }
 
     String createTradeMsg(long trade_price, long qty, long counterOrderId, long tradeId) {
@@ -59,7 +64,20 @@ public class Order {
         fields.put(FixConstants.FieldLastQty, String.valueOf(qty));
         fields.put(FixConstants.FieldSecondaryOrderID, String.valueOf(counterOrderId));
         fields.put(FixConstants.FieldExecID, String.valueOf(tradeId));
+        SetOrderStatus(fields);
         return FixMsg.CompileMsg(fields);
+    }
+
+    private void SetOrderStatus(Map<Integer, String> fields) {
+        if (this.isCancelled) {
+            fields.put(FixConstants.FieldOrdStatus, FixConstants.FieldOrdStatus_Canceled);
+        } else if (this.filled == 0) {
+            fields.put(FixConstants.FieldOrdStatus, FixConstants.FieldOrdStatus_New);
+        } else if (this.filled == this.quantity) {
+            fields.put(FixConstants.FieldOrdStatus, FixConstants.FieldOrdStatus_Filled);
+        } else if (this.filled < this.quantity) {
+            fields.put(FixConstants.FieldOrdStatus, FixConstants.FieldOrdStatus_PartiallyFilled);
+        }
     }
 
     @Override

@@ -36,7 +36,11 @@ public class FixMsgParser {
             FixCancelMsg cancelMsg = new FixCancelMsg();
             cancelMsg.Parse(fields);
             return cancelMsg;
-        } else {
+        } else if (msgType.equals(FixConstants.FieldMsgType_OrderCancelReplaceRequest)) {
+            FixUpdateMsg updateMsg = new FixUpdateMsg();
+            updateMsg.Parse(fields);
+            return updateMsg;
+        }else {
             fields.put(FixConstants.FieldReason, "unknown MsgType field");
             return new FixErrorMsg(fields);
         }

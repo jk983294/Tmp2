@@ -16,6 +16,10 @@ public class Level {
         this.count--;
     }
 
+    public void update(long deltaQty) {
+        this.quantity += deltaQty;
+    }
+
     public boolean valid() {
         return this.quantity > 0;
     }
